@@ -1,0 +1,1 @@
+const graficoDolar = document.querySelector('')
