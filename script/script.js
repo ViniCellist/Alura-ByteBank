@@ -19,4 +19,14 @@ const graficoParaDolar = new Chart(graficoDolar, {
     console.log(connectTranslate);
   }
 
- connectAPI();
+ setInterval(() => connectAPI(), 5000);
+
+ function generateHour() {
+  let date = new Date();
+  let hour = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+
+  console.log(hour);
+  return hour;
+ };
+
+ generateHour();
