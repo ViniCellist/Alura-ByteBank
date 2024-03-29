@@ -1,5 +1,4 @@
 import printCoat from './print.js';
-
 const graficoDolar = document.querySelector('#graficoDolar');
 
 const graficoParaDolar = new Chart(graficoDolar, {
@@ -7,24 +6,12 @@ const graficoParaDolar = new Chart(graficoDolar, {
     data: {
       labels: [],
       datasets: [{
-        label: '# Dolar',
+        label: 'Dólar',
         data: [],
         borderWidth: 1
       }]
     },
   });
-
-
-  async function connectAPI() {
-    const connect = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL");
-    const connectTranslate = await connect.json();
-    let tempo = generateHour();
-    let valor = connectTranslate.USDBRL.ask;
-    addData(graficoParaDolar, tempo, valor);
-    printCoat('dolar', valor);
-  };
-
- setInterval(() => connectAPI(), 5000);
 
  function generateHour() {
   let date = new Date();
@@ -41,3 +28,13 @@ function addData(grafico, legenda, dados) {
   });
   grafico.update();
 };
+
+let workerDolar = new Worker('./script/workers/workerDolar.js');
+workerDolar.postMessage('usd');
+
+workerDolar.addEventListener('message', event => {
+  let tempo = generateHour();
+  let valor = event.data.ask;
+  printCoat('dolar', valor);
+  addData(graficoParaDolar, tempo, valor)
+});
