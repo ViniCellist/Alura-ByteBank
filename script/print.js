@@ -1,6 +1,6 @@
 const list = document.querySelector('[data-lista]');
 
-function printCoat(nome, valor) {
+export default function printCoat(nome, valor) {
     list.innerHTML = '';
 
     for(let multiplicador = 1; multiplicador <= 1000; multiplicador *= 10) {
@@ -9,5 +9,3 @@ function printCoat(nome, valor) {
         list.appendChild(listItem);
     };
 };
-
-export default printCoat;

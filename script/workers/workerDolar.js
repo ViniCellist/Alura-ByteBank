@@ -4,7 +4,7 @@ async function conectaAPI() {
     postMessage(conectaTraduzido.USDBRL);
 };
 
-addEventListener('messagem', () => {
+addEventListener('message', () => {
     conectaAPI();
     setInterval(() => conectaAPI(), 5000);
 });

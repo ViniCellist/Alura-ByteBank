@@ -32,9 +32,9 @@ function addData(grafico, legenda, dados) {
 let workerDolar = new Worker('./script/workers/workerDolar.js');
 workerDolar.postMessage('usd');
 
-workerDolar.addEventListener('message', event => {
+workerDolar.addEventListener("message", event => {
   let tempo = generateHour();
   let valor = event.data.ask;
-  printCoat('dolar', valor);
-  addData(graficoParaDolar, tempo, valor)
+  printCoat("dolar", valor);
+  addData(graficoParaDolar, tempo, valor);
 });
