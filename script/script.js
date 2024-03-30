@@ -1,4 +1,4 @@
-import printCoat from './print.js';
+import selectCoat from './print.js';
 const graficoDolar = document.querySelector('#graficoDolar');
 
 const graficoParaDolar = new Chart(graficoDolar, {
@@ -35,6 +35,29 @@ workerDolar.postMessage('usd');
 workerDolar.addEventListener("message", event => {
   let tempo = generateHour();
   let valor = event.data.ask;
-  printCoat("dolar", valor);
+  selectCoat("dolar", valor);
   addData(graficoParaDolar, tempo, valor);
+});
+
+const graficoIene = document.querySelector('#graficoIene');
+const graficoParaIene = new Chart(graficoIene, {
+  type:  'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Iene',
+      data: [],
+      borderWidth: 1
+    }]
+  },
+});
+
+let workerIene = new Worker('./script/workers/workerIene.js');
+workerIene.postMessage('iene');
+
+workerIene.addEventListener("message", event => {
+  let tempo = generateHour();
+  let valor = event.data.ask;
+  selectCoat("iene", valor);
+  addData(graficoParaIene, tempo, valor);
 });
